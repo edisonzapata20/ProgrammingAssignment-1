@@ -9,6 +9,46 @@ import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
+	public int flag=0;
+	public void bombs(Jframe e){
+		Component c = e.getComponent();
+		while (!(c instanceof JFrame)) {
+			c = c.getParent();
+			if (c == null) {
+				return;
+			}
+		
+		JFrame myFrame = (JFrame) c;
+		MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
+		Insets myInsets = myFrame.getInsets();
+		int x1 = myInsets.left;
+		int y1 = myInsets.top;
+		e.translatePoint(-x1, -y1);
+		int x = e.getX();
+		int y = e.getY();
+		myPanel.x = x;
+		myPanel.y = y;
+		myPanel.mouseDownGridX = myPanel.getGridX(x, y);
+		myPanel.mouseDownGridY = myPanel.getGridY(x, y);
+		myPanel.repaint();
+		// Declaracion de la localizacion de las minas.
+		//int flag=0;
+		int bombs=generator.nextInt(15);
+		for(int b=0;b<bombs;b++)
+		{ int i,j;
+		i=generator.nextInt(10);
+		j=generator.nextInt(10);
+		flag=1;
+		Color newColor = Color.BLACK;
+		myPanel.colorArray[i][j] = newColor;
+		myPanel.repaint();
+		return flag;
+		}
+	}
+	
+	
+
+	
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -80,8 +120,10 @@ public class MyMouseAdapter extends MouseAdapter {
 							//On the left column and on the top row... do nothing
 						} else {
 							//On the grid other than on the left column and on the top row:
+							
+							if (flag==0){//La persona no selecciona una mina
 							Color newColor = null;
-							switch (generator.nextInt(5)) {
+							switch (generator.nextInt(4)) {
 							case 0:
 								newColor = Color.YELLOW;
 								break;
@@ -89,17 +131,40 @@ public class MyMouseAdapter extends MouseAdapter {
 								newColor = Color.MAGENTA;
 								break;
 							case 2:
-								newColor = Color.BLACK;
-								break;
-							case 3:
 								newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
 								break;
-							case 4:
+							case 3:
 								newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
 								break;
 							}
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 							myPanel.repaint();
+						}}
+						else if (flag==1)//La persona selecciona una mina y todo el espacio se pinta.
+						{
+							for(int i=1;i<10;i++)
+							{for (int j = 1; j < 10; j++) 
+							{
+								Color newColor = null;
+								switch (generator.nextInt(4)) {
+								case 0:
+									newColor = Color.YELLOW;
+									break;
+								case 1:
+									newColor = Color.MAGENTA;
+									break;
+								case 2:
+									newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
+									break;
+								case 3:
+									newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
+									break;
+								}
+								myPanel.colorArray[i][j] = newColor;
+								myPanel.repaint();
+							}
+							}
+							}
 						}
 					}
 				}

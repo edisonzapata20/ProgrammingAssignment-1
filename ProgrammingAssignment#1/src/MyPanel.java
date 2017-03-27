@@ -105,6 +105,7 @@ public class MyPanel extends JPanel {
 		return x;
 	}
 	public int getGridY(int x, int y) {
+
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
 		int y1 = myInsets.top;
@@ -129,4 +130,21 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
+//	public bombs(int flag){
+//		Color newColor = Color.BLACK;
+//		flag=0;
+//		Random generator = new Random();
+//		int bombs=generator.nextInt();
+//		for(int b=0;b<bombs;b++)
+//		{ int i,j;
+//			i=generator.nextInt(10);
+//			j=generator.nextInt(10);
+//			flag=1;
+//			newColor = Color.BLACK;
+//			colorArray[i][j] = newColor;
+//			repaint();
+//			return flag;
+//		}
+//		
+//	}
 }
