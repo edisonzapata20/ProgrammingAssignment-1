@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.awt.Insets;
 import java.util.Random;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MyPanel extends JPanel {
@@ -16,7 +17,7 @@ public class MyPanel extends JPanel {
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
-	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
+	public static Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -130,21 +131,4 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
-//	public bombs(int flag){
-//		Color newColor = Color.BLACK;
-//		flag=0;
-//		Random generator = new Random();
-//		int bombs=generator.nextInt();
-//		for(int b=0;b<bombs;b++)
-//		{ int i,j;
-//			i=generator.nextInt(10);
-//			j=generator.nextInt(10);
-//			flag=1;
-//			newColor = Color.BLACK;
-//			colorArray[i][j] = newColor;
-//			repaint();
-//			return flag;
-//		}
-//		
-//	}
 }
